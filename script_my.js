@@ -1,4 +1,4 @@
-const mat = Array.from({ length: rows }, () => new Array(columns).fill(0));
+// const mat = Array.from({ length: rows }, () => new Array(columns).fill(0));
 
 
 
