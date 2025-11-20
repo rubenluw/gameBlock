@@ -2,19 +2,40 @@
 
 
 
-function fNextStep(map, y1, x1, y2, x2){
-  let rows = map.length;
-  let columns = map[0].length;
-  let score = fGetScore(map, y1, x1, y2, x2, rows, columns);
+function fNextStep(nums, n1, n2){
+  // let rows = map.length;
+  // let columns = map[0].length;
+  let columns = 9;
+  let rows = Math.floor(nums.length / columns);
+  let score = 0;
   let steps = 0;
+  let y1 = 0, x1 = 0, y2 = 0, x2 = 0;
+  const map = Array.from({ length: rows }, () => new Array(columns).fill(0));
 
+  y1 = Math.floor(n1 / columns);
+  x1 = n1 % columns;
+  y2 = Math.floor(n2 / columns);
+  x2 = n2 % columns;
+  copyFromNumsToMap(nums,map,rows,columns)
+  score = fGetScore(map, y1, x1, y2, x2, rows, columns);
   if(score) {
     map[y1][x1] = 0;
     map[y2][x2] = 0;
   }
-
   steps = fGetSteps(map, rows, columns);
-
+  copyFromMapToNums(map,nums,rows,columns);
+}
+function copyFromNumsToMap(nums,map,rows,columns){
+  for(let i = 0;i < nums.length;i++){
+    map[Math.floor(i / columns)][i % columns] = nums[i];
+  }
+}
+function copyFromMapToNums(map,nums,rows,columns){
+  for(let i = 0;i < rows;i++){
+    for(let j = 0;j < columns;j++){
+      nums[i * rows + j] = map[i][j];
+    }
+  }
 }
 function fGetSteps(map, rows, columns){
   let steps = 0;
